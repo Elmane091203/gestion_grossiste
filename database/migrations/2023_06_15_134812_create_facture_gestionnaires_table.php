@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('facture_gestionnaires', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('panierG_id')->constrained('panierGs');
+            $table->foreignId('commande_gestionnaire_id')->constrained('commande_gestionnaires');
         });
     }
 

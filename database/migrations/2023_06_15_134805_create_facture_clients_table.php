@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('facture_clients', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('panier_id')->constrained('paniers');
+            $table->foreignId('commande_client_id')->constrained('commande_clients');
         });
     }
 

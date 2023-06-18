@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class User extends Authenticatable
 {
@@ -18,9 +19,11 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'nom',
+        'prenom',
         'email',
-        'password',
+        'motDePasse',
+        'role'
     ];
 
     /**
@@ -29,7 +32,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
+        'motDePasse',
         'remember_token',
     ];
 
@@ -40,6 +43,14 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
+        'motDePasse' => 'hashed',
     ];
+
+    public $timestamps = false;
+    /*protected function role(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) =>  ["client", "admin", "fournisseur", "gestionnaire"][$value],
+        );
+    }*/
 }
