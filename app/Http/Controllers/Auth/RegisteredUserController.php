@@ -21,7 +21,8 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        $user = new User();
+        return view('auth.register',['user'=>$user]);
     }
 
     /**

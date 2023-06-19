@@ -20,10 +20,10 @@ use App\Http\Controllers\StockFournisseursController;
 */
 
 Route::get('/', function () {
-    return view('paniers.index', ['paniers' => Panier::all()]);
+    return view('template.index');
 });
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('template.index');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

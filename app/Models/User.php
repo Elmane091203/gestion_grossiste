@@ -22,7 +22,7 @@ class User extends Authenticatable
         'nom',
         'prenom',
         'email',
-        'motDePasse',
+        'password',
         'role'
     ];
 
@@ -32,7 +32,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'motDePasse',
+        'password',
         'remember_token',
     ];
 
@@ -43,14 +43,12 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'motDePasse' => 'hashed',
+        'password' => 'hashed',
     ];
 
     public $timestamps = false;
-    /*protected function role(): Attribute
+    public function role()
     {
-        return new Attribute(
-            get: fn ($value) =>  ["client", "admin", "fournisseur", "gestionnaire"][$value],
-        );
-    }*/
+        return count(User::where('role','admin')->get())==0? ["client", "admin", "fournisseur", "gestionnaire"]: ["client","fournisseur", "gestionnaire"];
+    }
 }

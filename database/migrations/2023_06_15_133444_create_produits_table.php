@@ -15,6 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('libelle',50);
             $table->string('description');
+            $table->string('name');
+            $table->string('path');
+            $table->string('size');
+            $table->string('type');
             $table->integer('stock');
             $table->integer('prixUnitaire');
         });

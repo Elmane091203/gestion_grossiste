@@ -14,14 +14,14 @@
 
         <!-- Password -->
         <div class="mt-4">
-            <x-input-label for="motDePasse" :value="__('Mot De Passe')" />
+            <x-input-label for="password" :value="__('Mot De Passe')" />
 
-            <x-text-input id="motDePasse" class="block mt-1 w-full"
+            <x-text-input id="password" class="block mt-1 w-full"
                             type="password"
-                            name="motDePasse"
+                            name="password"
                             required autocomplete="current-password" />
 
-            <x-input-error :messages="$errors->get('motDePasse')" class="mt-2" />
+            <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
         <!-- Remember Me -->
