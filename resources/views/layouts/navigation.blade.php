@@ -73,7 +73,7 @@
                     <!-- LOGO -->
                     <div class="col-md-3">
                         <div class="header-logo">
-                            <a href="/" class="logo">
+                            <a href="{{ route('acceuil') }}" class="logo">
                                 <img src="{{ asset('img/logo.png') }}" alt="">
                             </a>
                         </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ProduitSupprimer;
 use App\Models\Panier;
 use App\Models\Produit;
 use Illuminate\Http\Request;
@@ -47,6 +48,7 @@ class HomeController extends Controller
             $panier->quantite = $panier->quantite+ 1;
         }
         $panier->save();
+        event(new ProduitSupprimer('hem'));
 
         return to_route('acceuil');
     }

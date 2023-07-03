@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nom',50);
             $table->string('prenom',50);
             $table->string('email')->unique();
+            $table->boolean('etat')->default(true);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->string('provider')->nullable();

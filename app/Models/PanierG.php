@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class PanierG extends Model
 {
     use HasFactory;
-
+	protected $table = 'paniergs';
 	public function user()
 	{
 		return $this->belongsTo('App\Models\User');

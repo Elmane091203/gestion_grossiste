@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Panier;
 use Illuminate\Http\Request;
 
 class GestionnaireController extends Controller
@@ -11,7 +12,24 @@ class GestionnaireController extends Controller
      */
     public function index()
     {
-        //
+        return view('gestionnaire.index');
+    }
+
+    public function commandeClient()
+    {
+        $paniers = Panier::where('etatC','=',1,'and')->where('etatG','=',0)->get();
+        return view('client.commande',compact('paniers'));
+    }
+    public function commandeClientA($action,$id)
+    {
+        $panier = Panier::find($id);
+        if ($action=='Valider') {
+            $panier->etatG = 1;
+            $panier->save();
+        }else{
+            $panier->delete();
+        }
+        return redirect()->route('gestionnaire.client');
     }
 
     /**

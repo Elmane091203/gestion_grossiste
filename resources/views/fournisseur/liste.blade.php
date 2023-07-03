@@ -1,0 +1,1 @@
+<!-- crud generer pour fournisseur -->

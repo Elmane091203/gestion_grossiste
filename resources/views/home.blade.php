@@ -73,7 +73,7 @@
                                     @foreach ($produits as $p)
                                     <div class="product">
                                         <div class="product-img">
-                                            <img src="{{ $p['image'] }}" alt="">
+                                            <img src="{{ file_exists(public_path($p->image)) ? asset($p->image) : url('public/images/' . $p->image) }}" alt="">
                                         </div>
                                         <div class="product-body">
                                             <p class="product-category">{{ $p['categorie'] }}</p>
@@ -130,7 +130,7 @@
                                     @foreach ($produits2 as $p)
                                     <div class="product">
                                         <div class="product-img">
-                                            <img src="{{ $p['image'] }}" alt="">
+                                            <img src="{{ file_exists(public_path($p->image)) ? asset($p->image) : url('public/images/' . $p->image) }}" alt="">
                                         </div>
                                         <div class="product-body">
                                             <p class="product-category">{{ $p['categorie'] }}</p>
