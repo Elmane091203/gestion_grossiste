@@ -53,7 +53,7 @@
             <select id="role"
                 class="block mt-1 w-full bg-gray-100 border-transparent rounded-md focus:border-gray-500 focus:bg-white focus:ring-0"
                 type="role" name="role" :value="old('role')" required autocomplete="role">
-                @foreach ($user->role() as $c)
+                @foreach ($user->roles() as $c)
                     <option value="{{ $c }}">{{ strtoupper($c) }}</option>
                 @endforeach
             </select>
@@ -61,7 +61,7 @@
         </div>
 
         <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-primary rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
                 href="{{ route('login') }}">
                 {{ __('Already registered?') }}
             </a>

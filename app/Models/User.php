@@ -3,13 +3,15 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -23,7 +25,10 @@ class User extends Authenticatable
         'prenom',
         'email',
         'password',
-        'role'
+        'role',
+        'provider',
+        'provider_id',
+        'provider_token',
     ];
 
     /**
@@ -47,8 +52,19 @@ class User extends Authenticatable
     ];
 
     public $timestamps = false;
-    public function role()
+    protected function role(): Attribute
     {
-        return count(User::where('role','admin')->get())==0? ["client", "admin", "fournisseur", "gestionnaire"]: ["client","fournisseur", "gestionnaire"];
+        return new Attribute(
+            get: fn ($value) =>  ['admin' => "admin", 'client' => "client", 'gestionnaire' =>  "gestionnaire", 'fournisseur' => "fournisseur"][$value],
+        );
     }
+    
+    public static function roles()
+    {
+        return ["client", "fournisseur"];
+    }
+    public function panier()
+	{
+		return $this->hasMany('App\Models\Panier');
+	}
 }
