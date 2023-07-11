@@ -15,7 +15,7 @@
                             <div class="col-md-4 col-xs-6">
                                 <div class="product">
                                     <div class="product-img">
-                                        <img src="{{ asset($p['image']) }}" alt="">
+                                        <img src="{{ file_exists(public_path($p['image'])) ? asset($p['image']) : url('public/images/' . $p['image']) }}" alt="">
                                     </div>
                                     <div class="product-body">
                                         <p class="product-category">{{ $p['categorie'] }}</p>
@@ -28,8 +28,14 @@
                                         </div>
                                     </div>
                                     <div class="add-to-cart">
-                                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Ajouter au
-                                            panier</button>
+                                            <form action="{{ route('paniers.create') }}" method="post">
+                                                @csrf
+                                                @if (Auth::user()!=null)
+                                                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                                @endif
+                                                <input type="hidden" name="produit_id" value="{{ $p['id'] }}">
+                                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Ajouter au panier</button>
+                                            </form>
                                     </div>
                                 </div>
                             </div>

@@ -5,24 +5,28 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-    <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <script>
-  
-      // Enable pusher logging - don't include this in production
-      Pusher.logToConsole = true;
-  
-      var pusher = new Pusher('6659a861db022170086e', {
-        cluster: 'ap1'
-      });
-      
-      var channel = pusher.subscribe('gestion-grossiste');
-      channel.bind('produit-supprimer', function(data) {
-        toastr.warning('Un produit n\'est plus disponible')
-      });
-    </script>
+    @if (Auth::user() != null)
+        @if (Auth::user()->role == 'client')
+            <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+                integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+            <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+            <script>
+                // Enable pusher logging - don't include this in production
+                Pusher.logToConsole = true;
+
+                var pusher = new Pusher('6659a861db022170086e', {
+                    cluster: 'ap1'
+                });
+
+                var channel = pusher.subscribe('gestion-grossiste');
+                channel.bind('produit-supprimer', function(data) {
+                    toastr.warning('Un produit n\'est plus disponible')
+                });
+            </script>
+        @endif
+    @endif
     <title>{{ config('app.name', 'Laravel') }}</title>
     @if (Auth::user() != null)
         @if (Auth::user()->role == 'client')
@@ -198,7 +202,8 @@
                             <div class="navbar-nav w-auto">
                                 <a href="{{ route('produit') }}" class="nav-item nav-link"><i
                                         class="fa fa-table me-2"></i>Produits</a>
-                                <a href="{{ route('gestionnaire.client') }}" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Commandes
+                                <a href="{{ route('gestionnaire.client') }}" class="nav-item nav-link"><i
+                                        class="fa fa-table me-2"></i>Commandes
                                     Client</a>
                                 <a href="chart.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Voir
                                     le bilan</a>

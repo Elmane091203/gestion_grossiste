@@ -40,14 +40,14 @@ Route::middleware('auth', 'user-access:client')->group(function () {
     Route::post('paniers/{id}', [HomeController::class, 'destroy'])->name('paniers.delete');
 });
 
-// Route::middleware('auth', 'user-access:admin')->group(function () {
+Route::middleware('auth', 'user-access:admin')->group(function () {
     // Route::resource('admin',AdminController::class);
 
     Route::get('/admin', [AdminController::class,'index'])->name('admin.index');
     Route::get('/admin/client', [AdminController::class,'client'])->name('admin.client');
     Route::get('/admin/fournisseur', [AdminController::class,'fournisseur'])->name('admin.fournisseur');
     Route::get('/admin/gestionnaire', [AdminController::class,'gestionnaire'])->name('admin.gestionnaire');
-// });
+});
 
 Route::middleware('auth', 'user-access:gestionnaire')->group(function () {
     Route::get('/gestionnaire', [GestionnaireController::class,'index'])->name('gestionnaire.index');

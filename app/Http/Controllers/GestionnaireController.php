@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ProduitSupprimer;
+use App\Models\CommandeClient;
+use App\Models\CommandeGestionnaire;
 use App\Models\Panier;
 use Illuminate\Http\Request;
 
@@ -12,22 +15,26 @@ class GestionnaireController extends Controller
      */
     public function index()
     {
-        return view('gestionnaire.index');
+        $commandeClients = CommandeClient::all();
+        $commandeGestionnaires = CommandeGestionnaire::all();
+        return view('gestionnaire.index', compact(['commandeClients', 'commandeGestionnaires']));
     }
 
     public function commandeClient()
     {
-        $paniers = Panier::where('etatC','=',1,'and')->where('etatG','=',0)->get();
-        return view('client.commande',compact('paniers'));
+        $paniers = Panier::where('etatC', '=', 1, 'and')->where('etatG', '=', 0)->get();
+        return view('client.commande', compact('paniers'));
     }
-    public function commandeClientA($action,$id)
+    public function commandeClientA($action, $id)
     {
         $panier = Panier::find($id);
-        if ($action=='Valider') {
+        if ($action == 'Valider') {
             $panier->etatG = 1;
             $panier->save();
-        }else{
+            return view('client.factureClient');
+        } else {
             $panier->delete();
+            event(new ProduitSupprimer('hem'));
         }
         return redirect()->route('gestionnaire.client');
     }

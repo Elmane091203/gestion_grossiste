@@ -48,7 +48,6 @@ class HomeController extends Controller
             $panier->quantite = $panier->quantite+ 1;
         }
         $panier->save();
-        event(new ProduitSupprimer('hem'));
 
         return to_route('acceuil');
     }
@@ -92,5 +91,10 @@ class HomeController extends Controller
     {
         $produits = Produit::where('categorie', $categorie)->get();
         return view('categories.' . $categorie, compact("produits"));
+    }
+
+    public function valider($paniers) {
+        foreach ($paniers as &$p){
+        }
     }
 }
